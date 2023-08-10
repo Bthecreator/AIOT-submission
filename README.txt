@@ -18,6 +18,8 @@ You need to follow the circuit diagram attached in the form of a .pdf file to ma
 
 If you run it and the led doesn't light-up or there is a error say the port "COM3" does not exist then you need to edit the file with the name of the usb port used by the arduino.
 
+Otherwise, you can run the non-arduino file.
+
 The model was built with the help of the follwing libraries:
 
 1. Tensorflow

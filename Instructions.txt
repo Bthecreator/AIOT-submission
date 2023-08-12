@@ -1,0 +1,47 @@
+Run Model.py to run the Classification model. 
+
+The documentation is in the Model.py file in the form of comments.
+
+*Please use IDLE or another IDE such as VS-Code*
+
+While the Python script is running, press q to kill it and close the model.
+
+If the python script does not work install the libraries mentioned in requirements.txt
+
+You can do so by opening a command promt with the location of this folder and entering the command ' pip install -r requirements.txt ' 
+
+You may also have to install other dependencies to run the libraries.
+
+The Model.ipynb file is a Jupyter notebook that was used to construct the model.
+
+The Model.h5 file is the AI model which was constructed by the Model.ipynb file and saved.
+
+The database has not been added due to file size limitations.
+
+The files need to be in the same directory to work.
+
+You need to follow the circuit diagram attached in the form of a .pdf file to make connections to the arduino.
+
+Once you've made the connections of the arduino and connected it to your PC as well as installed the libraries, you need to open the Arduino IDE.
+
+Once, you've opened the IDE. You need to click on the files button and then the examples button. Once the examples sub-menu opens, scroll down until you see the firmata examples button. Click on it and then select "StandardFirmata".
+
+After opening the example, upload the example StandardFirmata sketch to Arduino. This initializes the Arduino for input through Python.
+
+If you run it and the led doesn't light-up or there is a error say the port "COM3" does not exist then you need to edit the model.py file with the name of the usb port used by the arduino.
+
+You can test if the Pyfirmata library is working by running the ard.py file.
+
+Otherwise, you can run the non-arduino file.
+
+The model was built with the help of the follwing libraries:
+
+1. Tensorflow
+2. Keras
+3. Imutils
+4. Numpy
+5. Opencv
+6. Matplotlib
+7. Scipy
+8. Pyfirmata
+9. Pyserial

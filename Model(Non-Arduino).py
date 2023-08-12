@@ -1,20 +1,15 @@
-# Importing the needed libraries, please install them if there is an error
-# Note: The model may struggle to detect if a person is wearing a mask, idk why :(
 import cv2
 import time
 import tensorflow as tf
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.image import img_to_array
-import pyfirmata
 
-board = pyfirmata.Arduino('COM3') #Replace COM3 with the name of the port the arduino is connected with if there is an error
-
-cap = cv2.VideoCapture(0) #Starts capturing video input
+cap = cv2.VideoCapture(0)
 cap.set(3, 640)
 cap.set(4, 480)
 
 faceCascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
-maskClassifier = load_model('./Model.h5') #Loads the model
+maskClassifier = load_model('./Model.h5')
 
 while True:
    
@@ -35,15 +30,15 @@ while True:
 
         faceROI = frame[y : y + h, x : x + w, :]
 
-        faceROI = cv2.resize(faceROI, (160, 160)) #rescaling video input
-        faceROI = img_to_array(faceROI) #converting the captured image into an array for processing
-        faceROI = faceROI.reshape(1, 160, 160, 3) #Turing the image into a tensor
+        faceROI = cv2.resize(faceROI, (160, 160))
+        faceROI = img_to_array(faceROI)
+        faceROI = faceROI.reshape(1, 160, 160, 3)
 
         prediction = maskClassifier(faceROI)
-        (withoutmask, withmask) = prediction[0].numpy() #predicting...
+        (withoutmask, withmask) = prediction[0].numpy()
 
 
-        (label, color, prob) = ('Mask', (0, 255, 0), withmask*100.0) if withmask > withoutmask else ('No mask', (0, 0, 255), withoutmask*100.0) #outputting through a text label
+        (label, color, prob) = ('Mask', (0, 255, 0), withmask*100.0) if withmask > withoutmask else ('No mask', (0, 0, 255), withoutmask*100.0)
 
         cv2.rectangle(frame, (x, y), (x + w, y + h), color, 2)
 
@@ -56,12 +51,7 @@ while True:
         
     cv2.imshow('Video', frame)
 
-    if withoutmask > withmask: # Outputting through an arduino
-            board.digital[2].write(1)
-    else:
-        board.digital[2].write(0)
-
-    if cv2.waitKey(1) & 0xff == ord('q'): #Q to close the program
+    if cv2.waitKey(1) & 0xff == ord('q'):
         break
 
 cap.release()
